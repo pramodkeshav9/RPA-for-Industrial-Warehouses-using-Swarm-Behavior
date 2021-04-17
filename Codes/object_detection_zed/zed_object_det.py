@@ -20,7 +20,7 @@ def getContours(img, imgContour):
 
     for contour in contours:
         area = cv2.contourArea(contour)
-        if area > 3000:
+        if area > 2000:
             #cv2.drawContours(imgContour, contour, -1, (255,0,255), 7)
             points = cv2.approxPolyDP(contour, 0.02*cv2.arcLength(contour, True), True)
             numSides = len(points)
@@ -30,12 +30,33 @@ def getContours(img, imgContour):
             cv2.rectangle(imgContour, (x, y), (x+w, y+h), (0,255,0), 5)
             #print("x:",x,"y:",y)
             #Distance of object
+
+            #Average distance
+            i=int(x+(w/2))
+            j=int(y+(h/2))
+            dsts = list()
+            cnt=8
+            t=-1
+            while(cnt):
+                err, point_cloud_value = point_cloud.get_value(i,j)
+                dt =  math.sqrt( point_cloud_value[0] * point_cloud_value[0] + point_cloud_value[1] * point_cloud_value[1] + point_cloud_value[2] * point_cloud_value[2])
+                dsts.append(dt)
+                if(cnt%2==0):
+                    i=int(i+(t*(w/70)))
+                else:
+                    j=int(j+(t*(h/70)))
+                cnt=cnt-1
+                t=t*-1
+
+            distance= sum(dsts)/len(dsts)
+            
+            """
             err, point_cloud_value = point_cloud.get_value((x+w)/2, (y+h)/2)
 
             distance = math.sqrt(point_cloud_value[0] * point_cloud_value[0] +
                                  point_cloud_value[1] * point_cloud_value[1] +
                                  point_cloud_value[2] * point_cloud_value[2])
-
+            """
             point_cloud_np = point_cloud.get_data()
             point_cloud_np.dot(tr_np)
 
@@ -146,13 +167,13 @@ while key != 113 :
         #cv2.setMouseCallback("frame",Click)
         cv2.imshow("found", imgContour)
         #QR code detection
-        decodedText, points, _ = qrCodeDetector.detectAndDecode(frame)
-        if points is not None:
-        	nrOfPoints = len(points)
-        	for i in range(nrOfPoints):
-                    nextPointIndex = (i+1) % nrOfPoints
-                    cv2.line(frame, tuple(points[i][0]), tuple(points[nextPointIndex][0]), (255,0,0), 5)
-                    print(decodedText) 
+        #decodedText, points, _ = qrCodeDetector.detectAndDecode(frame)
+        #if points is not None:
+        #	nrOfPoints = len(points)
+        #	for i in range(nrOfPoints):
+        #            nextPointIndex = (i+1) % nrOfPoints
+        #            cv2.line(frame, tuple(points[i][0]), tuple(points[nextPointIndex][0]), (255,0,0), 5)
+        #            print(decodedText) 
         key = cv2.waitKey(10)
 
 cv2.destroyAllWindows()
@@ -162,3 +183,4 @@ print("\nFINISH")
 
 if __name__ == "__main__":
     main()
+
