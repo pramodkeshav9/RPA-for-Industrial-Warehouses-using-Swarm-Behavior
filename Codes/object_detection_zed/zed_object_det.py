@@ -1,11 +1,24 @@
+#!/usr/bin/env python3
 import sys
 import numpy as np
 import numpy
 import pyzed.sl as sl
 import cv2
 import math
+import rospy
+from geometry_msgs.msg import Point
 
-qrCodeDetector = cv2.QRCodeDetector()
+def point_publisher(x,y,z):
+        pub = rospy.Publisher('chatter', Point, queue_size=10)
+        rospy.init_node('talker', anonymous=True)
+        rate = rospy.Rate(1) # 1hz
+        msg=Point()
+        msg.x = x
+        msg.y = y
+        msg.z = z
+        pub.publish(msg)
+
+#qrCodeDetector = cv2.QRCodeDetector()
 
 def empty(xyz):
     pass
@@ -20,7 +33,7 @@ def getContours(img, imgContour):
 
     for contour in contours:
         area = cv2.contourArea(contour)
-        if area > 2000:
+        if area > 3000:
             #cv2.drawContours(imgContour, contour, -1, (255,0,255), 7)
             points = cv2.approxPolyDP(contour, 0.02*cv2.arcLength(contour, True), True)
             numSides = len(points)
@@ -34,6 +47,8 @@ def getContours(img, imgContour):
             #Average distance
             i=int(x+(w/2))
             j=int(y+(h/2))
+            x_mid=i
+            y_mid=j
             dsts = list()
             cnt=8
             t=-1
@@ -42,9 +57,9 @@ def getContours(img, imgContour):
                 dt =  math.sqrt( point_cloud_value[0] * point_cloud_value[0] + point_cloud_value[1] * point_cloud_value[1] + point_cloud_value[2] * point_cloud_value[2])
                 dsts.append(dt)
                 if(cnt%2==0):
-                    i=int(i+(t*(w/70)))
+                    i=int(i+(t*w/70))
                 else:
-                    j=int(j+(t*(h/70)))
+                    j=int(j+(t*h/70))
                 cnt=cnt-1
                 t=t*-1
 
@@ -62,6 +77,7 @@ def getContours(img, imgContour):
 
             if not np.isnan(distance) and not np.isinf(distance):
                 print("Distance to Camera at ({}, {}) (image center): {:1.3} m".format(x, y, distance), end="\r")
+                point_publisher(x_mid,y_mid,distance)
             else:
                 print("Can't estimate distance at this position.")
                 print("Your camera is probably too close to the scene, please move it backwards.\n")
@@ -169,11 +185,11 @@ while key != 113 :
         #QR code detection
         #decodedText, points, _ = qrCodeDetector.detectAndDecode(frame)
         #if points is not None:
-        #	nrOfPoints = len(points)
-        #	for i in range(nrOfPoints):
-        #            nextPointIndex = (i+1) % nrOfPoints
-        #            cv2.line(frame, tuple(points[i][0]), tuple(points[nextPointIndex][0]), (255,0,0), 5)
-        #            print(decodedText) 
+        	#nrOfPoints = len(points)
+        	#for i in range(nrOfPoints):
+                    #nextPointIndex = (i+1) % nrOfPoints
+                    #cv2.line(frame, tuple(points[i][0]), tuple(points[nextPointIndex][0]), (255,0,0), 5)
+                    #print(decodedText) 
         key = cv2.waitKey(10)
 
 cv2.destroyAllWindows()
