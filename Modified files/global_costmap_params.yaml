@@ -1,0 +1,15 @@
+global_costmap:
+  global_frame: map
+  robot_base_frame: base_link
+  update_frequency: 5.0
+  publish_frequency: 1.0
+  static_map: false
+  width: 50
+  height: 50
+  #resolution is the rate at which the map is split by the robot
+  #to reduce the computational load, set it to high, otherwise use small values
+  #use high values for small static maps
+  resolution: 0.1
+  plugins:
+    - {name: obstacles, type: "costmap_2d::VoxelLayer"}
+    - {name: inflater, type: "costmap_2d::InflationLayer"}
