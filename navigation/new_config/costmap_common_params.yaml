@@ -1,0 +1,30 @@
+robot_base_frame: base_link
+
+max_obstacle_height: 2.0
+#robot_radius: 0.2 
+footprint: [[0.152, -0.074], [0.152, 0.074], [-0.152, 0.074], [-0.152, -0.074]]
+footprint_padding: 0.01
+
+static_layer:
+  map_topic: /map
+  subscribe_to_updates: true
+
+obstacle_layer:
+  observation_sources: laser 
+
+  laser:
+    topic: /scan
+    sensor_frame: laser
+    observation_persistence: 0.0
+    expected_update_rate: 5.0
+    data_type: LaserScan
+    clearing: true
+    marking: true
+    max_obstacle_height: 2.0
+    min_obstacle_height: 0.0
+    obstacle_range: 0.25
+    raytrace_range: 0.3
+
+inflated_layer:
+  inflation_radius: 0.15
+  cost_scaling_factor: 3.0

@@ -1,0 +1,19 @@
+<launch>
+
+   
+ <!-- Run the map server --> 
+   <!--arg name="map_file" default="$(find robot_2dnav)/map.yaml" /--> 
+   <node name="map_server" pkg="map_server" type="map_server" args="/home/ubuntu/sample_ws/src/robot_2dnav/map.yaml" respawn="true" />
+
+ <!--- Run AMCL --> 
+   <include file="$(find amcl)/examples/amcl_diff.launch" />
+
+   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+      <rosparam file="/home/ubuntu/test_move_base_ws/src/nav1/navigation/new_config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+      <rosparam file="/home/ubuntu/test_move_base_ws/src/nav1/navigation/new_config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+      <rosparam file="/home/ubuntu/test_move_base_ws/src/nav1/navigation/new_config/local_costmap_params.yaml" command="load" />
+      <rosparam file="/home/ubuntu/test_move_base_ws/src/nav1/navigation/new_config/global_costmap_params.yaml" command="load" />
+      <rosparam file="/home/ubuntu/test_move_base_ws/src/nav1/navigation/new_config/base_local_planner_params.yaml" command="load" />
+ </node>
+
+</launch> 
