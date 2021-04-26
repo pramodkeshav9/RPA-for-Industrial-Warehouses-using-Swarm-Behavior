@@ -20,6 +20,7 @@ Sensors used: Wheel encoders for odometry
 
 ### Software Details
 Using ROS Navigation Stack for Autonomous Navigation of the robots.
-- Prerequisites
-- Usage
+## - Prerequisites
+1. 
+## - Usage
 
