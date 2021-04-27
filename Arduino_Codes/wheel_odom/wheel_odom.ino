@@ -69,9 +69,10 @@ void cmd_vel_callback( const geometry_msgs::Twist& msg){
 }
 ros::Subscriber<geometry_msgs::Twist> sub_cmd_vel("cmd_vel", &cmd_vel_callback );
 // Motor init 
-// ********************** FUNCTION DECLARATIONS *********************
 //void update_right_encoder(void);
 //void update_left_encoder(void);
+
+// ********************** FUNCTION DECLARATIONS *********************
 
 void to_odom_publisher(void);
 float update_left(void);
@@ -87,7 +88,7 @@ void MotorBR(int pwm);
 
 void pinmode_setup()
 {
-    pinMode(ENCODER_BRA, INPUT_PULLUP);
+ pinMode(ENCODER_BRA, INPUT_PULLUP);
  pinMode(ENCODER_BLA, INPUT_PULLUP);
  pinMode(ENCODER_BRB, INPUT_PULLUP);
  pinMode(ENCODER_BLB, INPUT_PULLUP);
@@ -152,10 +153,6 @@ void loop() {
     rotary_encoder_left = 0;
     rotary_encoder_right = 0;
   }
-
-  //rotary_encoder_left = 0;
-  //rotary_encoder_right = 0;
- 
   n.spinOnce();
 }
 
