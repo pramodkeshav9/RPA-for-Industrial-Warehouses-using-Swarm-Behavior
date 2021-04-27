@@ -30,8 +30,7 @@ volatile long rotary_encoder_left=0;
 
 float left_rev_count = 0;
 float right_rev_count = 0;
-float l_dist_val=0.0,r_dist_val
-=0.0;
+float l_dist_val=0.0,r_dist_val=0.0;
 volatile boolean fired_left
 ,up_left,fired_right,up_right;
 unsigned long current_time = 0,previous_time = 0;
