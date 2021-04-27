@@ -101,6 +101,7 @@ int main(int argc, char **argv){
 
         odom.header.stamp = current_time;
         odom.header.frame_id = "odom";
+        odom.child_frame_id = "base_link";
         odom.pose.pose.position.x = x;
         odom.pose.pose.position.y = y;
         odom.pose.pose.position.z = 0.0;
