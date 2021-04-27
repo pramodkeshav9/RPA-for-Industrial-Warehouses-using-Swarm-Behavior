@@ -104,7 +104,7 @@ int main(int argc, char **argv){
         odom.pose.pose.position.x = x;
         odom.pose.pose.position.y = y;
         odom.pose.pose.position.z = 0.0;
-        odom.pose.pose.orientation = odom_quat;
+        odom.pose.pose.orientation = tf::createQuaternionMsgFromROllPitchYaw(0,0,theta);
         odom.twist.twist.linear.x = vx;
         odom.twist.twist.linear.y = vy;
         odom.twist.twist.linear.z = 0.0;
