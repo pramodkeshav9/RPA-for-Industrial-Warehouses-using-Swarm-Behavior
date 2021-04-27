@@ -7,11 +7,11 @@
 #define IN1_BL 8
 #define IN2_BL 9
 #define EN_BR 46
-#define IN1_FL 5
-#define IN2_FL 4
-#define EN_FL 12
 #define IN1_BR 10
 #define IN2_BR 11
+#define EN_FL 12
+#define IN1_FL 5
+#define IN2_FL 4
 #define EN_FR 13
 #define IN1_FR 7
 #define IN2_FR 6
