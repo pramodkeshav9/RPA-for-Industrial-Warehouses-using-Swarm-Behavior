@@ -17,10 +17,15 @@ The hardware consists of 2 omni-directional robots which 4 have mecanum wheels w
 Sensors used: ZEDmini Camera for visualization and wheel encoders for odometry
 2. The second robot also has an Arduino Mega for the same purpose but uses a Raspberry Pi 4 for the computation.
 Sensors used: Wheel encoders for odometry
-
+## - Prerequisites
+1. Main master processor( Raspberry Pi 4 with 4gb RAM/Jetson Nano(2gb RAM and above))
+2. Arduino Mega as the low level controller
+3. 2/4 wheeled robots with/without Mecanum wheels
+4. Battery source(12V)
 ### Software Details
 Using ROS Navigation Stack for Autonomous Navigation of the robots.
 ## - Prerequisites
-1. 
+1. Linux based OS(Ubuntu 18.04 or above)/ Raspbian OS
+2. ROS Melodic and above
 ## - Usage
 
