@@ -27,5 +27,5 @@ Using ROS Navigation Stack for Autonomous Navigation of the robots.
 ### - Prerequisites
 1. Linux based OS(Ubuntu 18.04 or above)/ Raspbian OS
 2. ROS Melodic and above
-## - Usage
+
 
